@@ -1,0 +1,25 @@
+<%- include('partials/header.ejs') %>
+<div class='container'>
+	<header class="jumbotron">
+		<div class="container">
+			<h1>Welcome to Adventure World</h1>
+			<p>Here are some of the best adventurous activities that you may like</p>
+			<a href="/activities/new" class="btn btn-primary btn-lg">Add Activity</a>
+		</div>
+	</header>
+	<div class="row mx-5">
+		<% activities.forEach(activity=>{ %>
+			<div class="col-lg-4 col-6">
+				<figure class="figure">
+					<img src="<%= activity.img %>" class="img-thumbnail" alt="alt image">
+					<div id="image-under">
+						<figcaption class="figure-caption"><%= activity.name %></figcaption>
+						<a class="btn btn-outline-primary btn-sm" href="/activities/<%= activity._id %>">More Info</a>
+					</div>
+				</figure>
+			</div>
+		<% }) %>
+	</div>
+</div>
+
+<%- include('partials/footer.ejs') %>

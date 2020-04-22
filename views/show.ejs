@@ -1,0 +1,113 @@
+<%- include('partials/header.ejs') %>
+<div class="container space-top">
+	<div class="row">
+		<div class="col-md-3">
+			<p class="lead"><a href="/activities">Back To Activities</a></p>
+			<div class="list-group">
+				<li class="list-group-item active">Info 1</li>
+				<li class="list-group-item">Info 2</li>
+				<li class="list-group-item">Info 3</li>
+			</div>
+			<div id="map"></div>
+			<div id="lonlat">
+				<span id="longitude"><%=activity.longitude %></span>, <span id="latitude"><%=activity.latitude%></span>
+			</div>
+		</div>
+		<div class="col-md-9">
+			<div class="card">
+				<img class="img-responsive card-img-top" src="<%= activity.img %>">
+				<div class="card-body">
+					<div class="align-right">
+						<h4><a href="#"><%= activity.name %></a></h4>
+						<h4>$<%= activity.price %>/Person</h4>
+					</div>
+					<p class="alter-text"><%= activity.description %></p>
+					<p><em>Submitted by <%= activity.author.username %></em></p>
+					<% if((currentUser && activity.author.id.equals(currentUser._id)) || ( currentUser && currentUser.isAdmin)){ %>
+						<a href="<%=activity._id%>/edit" class="btn btn-warning btn-sm">Edit</a>
+						<form class="delete-form" method="POST" action="<%=activity._id%>?_method=DELETE">
+							<button class="btn btn-danger btn-sm">Delete</button>
+						</form>
+					<% } %>
+				</div>
+			</div>
+			<div class="card space-top bg-secondary text-white">
+				<div class="card-body">
+					<div class="text-right">
+						<a href="/activities/<%=activity._id %>/comments/new" class="btn btn-success">Add New Comment</a>
+					</div>
+					<hr>
+					<% activity.comments.forEach(comment=>{ %>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="align-right">
+									<strong><%= comment.author.username %> </strong>
+									<span class="text-right">Posted on <%= comment.created.toLocaleString()%></span>
+								</div>
+								<p class="alter-text" id="comment-size">
+									<%= comment.text %>
+								</p>
+								<% if((currentUser && comment.author.id.equals(currentUser._id)) || ( currentUser && currentUser.isAdmin)){ %>
+									<a href="/activities/<%=activity._id %>/comments/<%= comment._id %>/edit" class="btn btn-warning btn-sm">Edit</a>
+									<form class=" delete-form" method="POST" action="/activities/<%=activity._id %>/comments/<%= comment._id %>?_method=DELETE">
+										<button class="btn btn-danger btn-sm">Delete</button>
+									</form>
+								<% } %>
+							</div>
+						</div>
+					<% }) %>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	const longitude = document.getElementById('longitude').innerHTML;
+	const latitude = document.getElementById('latitude').innerHTML;
+	mapboxgl.accessToken = 'pk.eyJ1IjoiaGFyc2gta2h1cmFuYSIsImEiOiJjazk2dHhwZXowamZxM2RsNGpyMWQ3eGhiIn0.VvHqE-lI53sh_tc62ArYrg';
+	var map = new mapboxgl.Map({
+		container: 'map', // container id
+		style: 'mapbox://styles/harsh-khurana/ck970tots6kk91ik5zxo9i1ng', // stylesheet location
+		center: [longitude,latitude], // starting position [lng, lat]
+		zoom: 9 // starting zoom
+	});
+
+
+	// Add zoom and rotation controls to the map.
+	map.addControl(new mapboxgl.NavigationControl());
+
+	map.on("load", function () {
+	/* Image: An image is loaded and added to the map. */
+	map.loadImage("https://i.imgur.com/MK4NUzI.png", function(error, image) {
+	if (error) throw error;
+	map.addImage("custom-marker", image);
+	/* Style layer: A style layer ties together the source and image and specifies how they are displayed on the map. */
+	map.addLayer({
+	id: "markers",
+	type: "symbol",
+	/* Source: A data source specifies the geographic coordinate where the image marker gets placed. */
+	source: {
+	type: "geojson",
+	data: {
+	type: 'FeatureCollection',
+	features: [
+	{
+	type: 'Feature',
+	properties: {},
+	geometry: {
+	type: "Point",
+	coordinates: [longitude,latitude]
+	}
+	}
+	]
+	}
+	},
+	layout: {
+	"icon-image": "custom-marker",
+	}
+	});
+	});
+	});
+</script>
+
+<%- include('partials/footer.ejs') %>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Adventure World</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="/stylesheets/app.css">
+	<link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Raleway&display=swap" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+	<!-- Mapbox API links -->
+	<script src="https://api.mapbox.com/mapbox-gl-js/v1.9.1/mapbox-gl.js"></script>
+	<link href="https://api.mapbox.com/mapbox-gl-js/v1.9.1/mapbox-gl.css" rel="stylesheet" />
+<body>
+	<nav class="navbar navbar-expand navbar-light bg-light">
+	  <a class="navbar-brand" href="/"><i class="fab fa-autoprefixer icon"></i></a>
+	  <div class="collapse navbar-collapse" id="navbarText">
+	    <ul class="navbar-nav ml-auto">
+	      	<% if(!currentUser){ %>
+				<li><a class="nav-link" href="/login">Login<i class="fas fa-user icon"></i></a></li>
+				<li><a class="nav-link" href="/register">Sign Up<i class="fas fa-user-plus icon"></i></a></li>
+			<% }else{ %>
+				<li><a class="nav-link" href="#">Signed In As <%= currentUser.username %></a></li>
+				<li><a class="nav-link" href="/logout">Log Out</a></li>
+			<% } %>
+	    </ul>
+	  </div>
+	</nav>
+	<div class="container">
+		<% if(error && error.length>0){ %>
+			<div class="alert alert-danger" role="alert">
+			  <%= error %>
+			</div>
+		<% } %>
+		<% if(success && success.length>0){ %>
+			<div class="alert alert-success" role="alert">
+			  <%= success %>
+			</div>
+		<% } %>
+	</div>

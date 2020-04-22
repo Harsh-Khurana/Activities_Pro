@@ -1,0 +1,30 @@
+<%- include('partials/header.ejs') %>
+
+<div class="container mt-5">
+		<h1 style="text-align: center;" class="m-5">Edit Activity :<%= activity.name %></h1>
+		<div style="width:30%; margin:0 auto;">
+			<form method='POST' action='/activities/<%= activity._id %>/?_method=PUT'>
+				<div class="form-group">
+					<input class="form-control" type='text' name='activity[name]' value="<%= activity.name %>">
+				</div>
+				<div class="form-group">
+					<input class="form-control" type='text' name='activity[img]' value="<%= activity.img %>">
+				</div>
+				<div class="form-group">
+					<input class="form-control" type='number' name='activity[price]' value="<%= activity.price %>">
+				</div>
+				<div class="form-group">
+					<input class="form-control" type='text' name='activity[location]' value="<%= activity.location %>">
+				</div>
+				<div class="form-group">
+					<input class="form-control" type='text' name='activity[description]' value="<%= activity.description %>">
+				</div>
+				<div class="form-group">
+					<button class="btn btn-lg btn-primary btn-block">Submit</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<%- include('partials/footer.ejs') %>

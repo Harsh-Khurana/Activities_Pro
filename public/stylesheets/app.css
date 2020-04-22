@@ -1,0 +1,66 @@
+body{
+	font-family: 'Playfair Display', serif;
+	background: linear-gradient(to right,#EFEFBB,#D4D3DD)
+}
+#map { 
+	height: 500px;
+	width: 100%; 
+	margin-top: 1rem;
+}
+h1{
+	font-size: 3rem;
+}
+.figure-caption{
+	/*font-weight: bold;*/
+	font-size: 1.2rem;
+	text-transform: capitalize;
+	text-shadow: 2px 2px 1px #e9ecef;
+}
+p,a{
+	font-size: 1.3rem;
+}
+.fa-autoprefixer{
+	font-size: 2.5rem;
+	margin: 5px;
+	transition: all 0.4s;
+}
+.fa-autoprefixer:hover{
+	transform: scale(1.2);
+}
+.fas{
+	padding-left:10px;
+}
+.nav-link:hover{
+	text-shadow:4px 4px 2px #e9ecef;
+}
+.thumbnail img{
+	width:100%;
+}
+/* To give a padding to cards */
+.space-top{
+	margin-top: 1.1rem;
+}
+
+/* For shifting content to right*/
+.align-right{
+	display: flex;
+	justify-content: space-between;
+}
+
+.delete-form{
+	display: inline;
+}
+nav{
+	margin-bottom: 1.1rem;
+}
+.alter-text{
+	font-family: 'Raleway', sans-serif;
+}
+#image-under{
+	display: flex;
+	margin-top:0.5rem;
+	justify-content: space-around;
+}
+#comment-size{
+	font-size:1rem;
+}
