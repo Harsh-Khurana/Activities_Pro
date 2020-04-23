@@ -243,7 +243,7 @@ app.get('/activities/:id/edit',checkActivityOwnership ,(req,res)=>{
 // Update route
 app.put('/activities/:id',checkActivityOwnership ,(req,res)=>{
 	const location = req.body.activity.location;
-	rp(`https://api.mapbox.com/geocoding/v5/mapbox.places/${location}.json?access_token=pk.eyJ1IjoiaGFyc2gta2h1cmFuYSIsImEiOiJjazk2dHhwZXowamZxM2RsNGpyMWQ3eGhiIn0.VvHqE-lI53sh_tc62ArYrg`)
+	rp(`https://api.mapbox.com/geocoding/v5/mapbox.places/${location}.json?access_token=${process.env.GEOCODER}`)
 		.then(resp=>JSON.parse(resp))
 		.then(result=>{
 			const [longitude,latitude] = result.features[0].center;
